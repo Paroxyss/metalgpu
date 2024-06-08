@@ -16,6 +16,8 @@ class Interface:
         if architecture == "arm64":
             self._metal = ctypes.cdll.LoadLibrary(_objPath + "/lib/libmetalgpucpp-arm.dylib")
         else:
+            # Check that the path isnt empty
+            assert os.path.exists(_objPath + "/lib/libmetalgpucpp-x86.dylib"), "[MetalGPU] Could not find the library"
             self._metal = ctypes.cdll.LoadLibrary(_objPath + "/lib/libmetalgpucpp-x86.dylib")
 
         self._init_functions()
