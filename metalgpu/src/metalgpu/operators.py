@@ -1,6 +1,9 @@
 import numpy as np
 
+from buffer import Buffer
+
 def sqrt(buf):
+    assert isinstance(buf, Buffer)
     out_buffer = buf.interface.create_buffer(len(buf.contents), buf.toMetalType(buf.contents.dtype))
     sqrt_kernel = f"""
     #include <metal_stdlib>
@@ -21,6 +24,7 @@ def sqrt(buf):
 
 
 def cos(buf):
+    assert isinstance(buf, Buffer)
     out_buffer = buf.interface.create_buffer(len(buf.contents), buf.toMetalType(buf.contents.dtype))
     cos_kernel = f"""
     #include <metal_stdlib>
@@ -40,6 +44,7 @@ def cos(buf):
     return out_buffer
 
 def sin(buf):
+    assert isinstance(buf, Buffer)
     if(buf.contents.dtype != np.float32 and buf.contents.dtype != np.float64): raise TypeError("[MetalGPU] Buffer data type must be float or double")
     out_buffer = buf.interface.create_buffer(len(buf.contents), buf.toMetalType(buf.contents.dtype))
     sin_kernel = f"""
@@ -59,6 +64,7 @@ def sin(buf):
 
 
 def tan(buf):
+    assert isinstance(buf, Buffer)
     if(buf.contents.dtype != np.float32 and buf.contents.dtype != np.float64): raise TypeError("[MetalGPU] Buffer data type must be float or double")
     out_buffer = buf.interface.create_buffer(len(buf.contents), buf.toMetalType(buf.contents.dtype))
     tan_kernel = f"""

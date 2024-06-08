@@ -111,7 +111,7 @@ class Buffer:
         self.release()
         self.contents = new_buf.contents
         self.bufType = self.contents.dtype
-        return
+        return self
 
     def as_int(self):
         new_buf = self.interface.create_buffer(len(self.contents), "int")
@@ -134,7 +134,7 @@ class Buffer:
         self.release()
         self.contents = new_buf.contents
         self.bufType = self.contents.dtype
-        return
+        return self
 
     def toMetalType(self, numpyType):
         if numpyType == np.int32: return "int"

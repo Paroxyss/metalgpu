@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.23)
 project(
-	metalgpucpp
+	metalgpucpp-arm
 	DESCRIPTION "C++ backend for metalgpu python lib"
 )
 
@@ -20,17 +20,17 @@ file(GLOB SRC_FILES CONFIGURE_DEPENDS
 	"src/instance/*.cpp"
 )
 
-add_library(metalgpucpp SHARED ${SRC_FILES})
+add_library(metalgpucpp-arm SHARED ${SRC_FILES})
 
-target_include_directories(metalgpucpp
+target_include_directories(metalgpucpp-arm
   SYSTEM PUBLIC ${CMAKE_SOURCE_DIR}/metal-cpp
 )
 
-target_link_libraries(metalgpucpp
+target_link_libraries(metalgpucpp-arm
   ${APPLE_FWK_FOUNDATION}
   ${APPLE_FWK_METAL}
   ${COCOA_LIBRARY}
 )
 
 set(CMAKE_INSTALL_PREFIX  "../metalgpu/src/metalgpu/")
-install(TARGETS metalgpucpp)
+install(TARGETS metalgpucpp-arm)

@@ -1,4 +1,5 @@
 from interface import Interface
+from operators import sqrt
 
 instance = Interface()  # Initialise the metal instance
 shader_string = """
@@ -23,15 +24,11 @@ buffer_type = "int"
 
 initial_array = [i for i in range(buffer_size)]
 
-buffer1 = instance.array_to_buffer(initial_array)
+buffer1 = instance.array_to_buffer(initial_array).as_float()
+
 buffer2 = instance.array_to_buffer(initial_array)
 
-print(buffer1.contents)
-print(buffer2.contents)
-buffer3 = buffer1 * buffer2
-print(buffer3.contents)
-buffer4 = instance.create_buffer(buffer_size, buffer_type)
+buffer3 = sqrt(buffer1)
 
-instance.run_function(buffer_size, [buffer1, buffer2, buffer4])
 
-print(buffer4.contents)
+

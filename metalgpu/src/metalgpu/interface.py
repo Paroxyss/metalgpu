@@ -1,13 +1,23 @@
 import ctypes
 import numpy as np
+
 import os
+import platform
+import subprocess
 
 from buffer import Buffer
 
 class Interface:
     def __init__(self):
         _objPath = os.path.dirname(__file__)
-        self._metal = ctypes.cdll.LoadLibrary(_objPath + "/lib/libmetalgpucpp.dylib")
+
+        result = subprocess.run(['uname', '-m'], capture_output=True, text=True, check=True)
+        architecture = result.stdout.strip()
+        if architecture == "arm64":
+            self._metal = ctypes.cdll.LoadLibrary(_objPath + "/lib/libmetalgpucpp-arm.dylib")
+        else:
+            self._metal = ctypes.cdll.LoadLibrary(_objPath + "/lib/libmetalgpucpp-x86.dylib")
+
         self._init_functions()
         self._init()
         self._loaded_shader = ""
