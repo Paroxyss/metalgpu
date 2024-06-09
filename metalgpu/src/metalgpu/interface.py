@@ -5,7 +5,7 @@ import os
 import platform
 import subprocess
 
-from buffer import Buffer
+from .buffer import Buffer
 
 class Interface:
     def __init__(self):
