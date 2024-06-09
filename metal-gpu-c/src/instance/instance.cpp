@@ -34,6 +34,20 @@ Instance::~Instance() {
         library->release();
     }
 }
+void Instance::loadLibrary(const char* shaderpath){
+    NS::String *path = NS::String::string(shaderpath, NS::StringEncoding::UTF8StringEncoding);
+
+    errPtr = nullptr;
+    if (library != NULL) {
+        library->release();
+    }
+    library = device->newLibrary(path, &errPtr);
+
+    if (library == NULL) { 
+        std::cout << errPtr->localizedDescription()->utf8String() << std::endl;
+    }
+}
+
 
 void Instance::createLibrary(const char *filename) {
     std::ifstream file;

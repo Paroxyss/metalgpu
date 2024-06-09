@@ -15,6 +15,10 @@ extern "C" {
         mainInstance->init();
     }
 
+	void loadLibrary(const char *shaderpath){
+		mainInstance->loadLibrary(shaderpath);
+	}
+
     void createLibrary(const char *filename) {
         mainInstance->createLibrary(filename);
     }

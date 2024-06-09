@@ -32,6 +32,7 @@ class Interface:
     def _init_functions(self):
         self._init = self._metal.init
         self._createBuffer = self._metal.createBuffer
+        self._loadLibrary = self._metal.loadLibrary
         self._createLibrary = self._metal.createLibrary
         self._setFunction = self._metal.setFunction
         self._runFunction = self._metal.runFunction
@@ -42,6 +43,7 @@ class Interface:
 
         self._init.argtypes = []
         self._createBuffer.argtypes = [ctypes.c_int]
+        self._loadLibrary.argtypes = [ctypes.c_char_p]
         self._createLibrary.argtypes = [ctypes.c_char_p]
         self._setFunction.argtypes = [ctypes.c_char_p]
         self._runFunction.argtypes = [ctypes.c_int, ctypes.POINTER(ctypes.c_int), ctypes.c_int]
@@ -52,6 +54,7 @@ class Interface:
 
         self._init.restype = None
         self._createBuffer.restype = ctypes.c_int
+        self._loadLibrary.restype = None
         self._createLibrary.restype = None
         self._setFunction.restype = None
         self._runFunction.restype = None
@@ -69,6 +72,11 @@ class Interface:
         buff = Buffer(buffPointer, bufsize, self, number)
         return buff
 
+    def load_shaderlib(self, shaderPath : str):
+        self._loadLibrary(shaderPath.encode('utf-8'))
+        self._loaded_shader = shaderPath
+        self._shader_from_path = True
+        
     def load_shader(self, shaderPath : str):
         self._createLibrary(shaderPath.encode('utf-8'))
         self._loaded_shader = shaderPath

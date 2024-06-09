@@ -9,6 +9,7 @@ struct BufferStorer {
 class Instance {
     public:
         void init();
+		void loadLibrary(const char* shaderpath);
         void createLibrary(const char* filename);
         void createLibraryFromString(const char *fileString);
         void setFunction(const char *funcname);
