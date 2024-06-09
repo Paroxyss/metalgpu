@@ -18,6 +18,11 @@ Load a shader from a specific file. Can be changed at any time.
 Load a shader from a string. Can be changed at any time.
 - shaderString: A string that can be resolved as a metal shader
 
+### Interface.load_shaderlib(shaderlibPath)
+
+Load a compiled shaderlib from a specific file. Can be changed at any time.
+- shaderlibPath: The path to the .metallib file that will be loaded
+
 ### Interface.set_function(functionName)
 
 Set the function that will be run when Interface.run_function is called.
